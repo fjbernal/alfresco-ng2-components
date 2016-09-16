@@ -218,7 +218,7 @@ export class AlfrescoLoginComponent implements OnInit {
         if (typeof componentHandler !== 'undefined') {
             componentHandler.upgradeAllRegistered();
         }
-        return !field.valid && field.dirty && !field.pristine;
+        return field && !field.valid && field.dirty && !field.pristine;
     }
 
     /**
