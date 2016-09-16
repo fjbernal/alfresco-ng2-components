@@ -15,6 +15,14 @@
  * limitations under the License.
  */
 
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule, ReactiveFormsModule }   from '@angular/forms';
+import { HttpModule } from '@angular/http';
+import { TranslateModule } from 'ng2-translate/ng2-translate';
+
+import { ALFRESCO_CORE_PROVIDERS /*, AlfrescoPipeTranslate*/ } from 'ng2-alfresco-core';
+
 import { AlfrescoSearchService } from './src/services/alfresco-search.service';
 import { AlfrescoThumbnailService } from './src/services/alfresco-thumbnail.service';
 import { AlfrescoSearchComponent } from './src/components/alfresco-search.component';
@@ -27,13 +35,43 @@ export * from './src/services/alfresco-thumbnail.service';
 export * from './src/components/alfresco-search.component';
 export * from './src/components/alfresco-search-control.component';
 
+// todo: deprecate
 export const ALFRESCO_SEARCH_DIRECTIVES: [any] = [
     AlfrescoSearchComponent,
     AlfrescoSearchControlComponent,
     AlfrescoSearchAutocompleteComponent
 ];
 
+// todo: deprecate
 export const ALFRESCO_SEARCH_PROVIDERS: [any] = [
     AlfrescoSearchService,
     AlfrescoThumbnailService
 ];
+
+
+@NgModule({
+    imports: [
+        BrowserModule,
+        FormsModule,
+        ReactiveFormsModule,
+        HttpModule,
+        TranslateModule
+    ],
+    declarations: [
+        // AlfrescoPipeTranslate,
+        AlfrescoSearchComponent,
+        AlfrescoSearchControlComponent,
+        AlfrescoSearchAutocompleteComponent
+    ],
+    providers: [
+        ...ALFRESCO_CORE_PROVIDERS,
+        AlfrescoSearchService,
+        AlfrescoThumbnailService
+    ],
+    exports: [
+        AlfrescoSearchComponent,
+        AlfrescoSearchControlComponent,
+        AlfrescoSearchAutocompleteComponent
+    ]
+})
+export class SearchModule { }

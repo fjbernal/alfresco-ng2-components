@@ -28,9 +28,9 @@ import {
     WebscriptComponent,
     TagComponent,
     AboutComponent,
-    FormViewer
+    FormViewer,
+    FormNodeViewer
 } from './components/index';
-import { FormNodeViewer } from './components/activiti/form-node-viewer.component';
 
 const appRoutes: Routes = [
     { path: 'home', component: FilesComponent },

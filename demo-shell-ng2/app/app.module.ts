@@ -15,18 +15,15 @@
  * limitations under the License.
  */
 
-import { NgModule } from '@angular/core';
+import { NgModule, ChangeDetectorRef } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule }   from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { TranslateModule } from 'ng2-translate/ng2-translate';
 
 import { LoginModule } from 'ng2-alfresco-login';
+import { SearchModule } from 'ng2-alfresco-search';
 
-import {
-    ALFRESCO_SEARCH_DIRECTIVES,
-    ALFRESCO_SEARCH_PROVIDERS
-} from 'ng2-alfresco-search';
 import {
     ALFRESCO_ULPOAD_COMPONENTS,
     ALFRESCO_ULPOAD_DIRECTIVES,
@@ -70,9 +67,6 @@ import {
     DOCUMENT_LIST_PROVIDERS
 } from 'ng2-alfresco-documentlist';
 
-// import { AlfrescoLoginComponent } from 'ng2-alfresco-login';
-import { FormNodeViewer } from './components/activiti/form-node-viewer.component';
-
 import { AppComponent } from './app.component';
 import { routing } from './app.routes';
 import {
@@ -87,6 +81,7 @@ import {
     TagComponent,
     AboutComponent,
     FilesComponent,
+    FormNodeViewer
 } from './components/index';
 
 // todo: temp
@@ -119,7 +114,8 @@ const ACTIVITI_FORM_DIRECTIVES: any[] = [
         ReactiveFormsModule,
         routing,
         TranslateModule.forRoot(),
-        LoginModule
+        LoginModule,
+        SearchModule
     ],
     declarations: [
         AppComponent,
@@ -133,7 +129,6 @@ const ACTIVITI_FORM_DIRECTIVES: any[] = [
         ...DOCUMENT_LIST_DIRECTIVES,
         ...ALFRESCO_ULPOAD_COMPONENTS,
         ...VIEWERCOMPONENT,
-        ...ALFRESCO_SEARCH_DIRECTIVES,
         ...TAGCOMPONENT,
         ...WEBSCRIPTCOMPONENT,
         ...ALFRESCO_ULPOAD_COMPONENTS,
@@ -158,7 +153,7 @@ const ACTIVITI_FORM_DIRECTIVES: any[] = [
         ...DOCUMENT_LIST_PROVIDERS,
         ...TAGSERVICES,
         ...ALFRESCO_ULPOAD_SERVICES,
-        ...ALFRESCO_SEARCH_PROVIDERS
+        ChangeDetectorRef
     ],
     bootstrap: [ AppComponent ]
 })
