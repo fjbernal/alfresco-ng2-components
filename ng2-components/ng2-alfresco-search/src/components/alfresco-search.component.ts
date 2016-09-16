@@ -15,8 +15,8 @@
  * limitations under the License.
  */
 
-import { Component, EventEmitter, Input, Output, Optional, OnChanges, OnInit } from '@angular/core';
-import { RouteParams } from '@angular/router-deprecated';
+import { Component, EventEmitter, Input, Output, OnChanges, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { AlfrescoSearchService } from './../services/alfresco-search.service';
 import { AlfrescoThumbnailService } from './../services/alfresco-thumbnail.service';
 import { AlfrescoPipeTranslate, AlfrescoTranslationService } from 'ng2-alfresco-core';
@@ -53,20 +53,26 @@ export class AlfrescoSearchComponent implements OnChanges, OnInit {
     constructor(private alfrescoSearchService: AlfrescoSearchService,
                 private translate: AlfrescoTranslationService,
                 private _alfrescoThumbnailService: AlfrescoThumbnailService,
-                @Optional() params: RouteParams) {
+                private activatedRoute: ActivatedRoute) {
 
         if (translate !== null) {
             translate.addTranslationFolder('node_modules/ng2-alfresco-search/dist/src');
         }
 
         this.results = null;
+        /*
         if (params) {
             this.searchTerm = params.get('q');
         }
+        */
     }
 
     ngOnInit(): void {
-        this.displaySearchResults(this.searchTerm);
+        this.activatedRoute.params.subscribe(params => {
+            this.searchTerm = params['q'];
+            this.displaySearchResults(this.searchTerm);
+        });
+        // this.displaySearchResults(this.searchTerm);
     }
 
     ngOnChanges(changes): void {

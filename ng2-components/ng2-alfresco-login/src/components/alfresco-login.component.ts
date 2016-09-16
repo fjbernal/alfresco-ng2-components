@@ -16,10 +16,9 @@
  */
 
 import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
-import { FORM_DIRECTIVES, ControlGroup, FormBuilder, Validators } from '@angular/common';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import {
     AlfrescoTranslationService,
-    AlfrescoPipeTranslate,
     AlfrescoAuthenticationService,
     AlfrescoSettingsService
 } from 'ng2-alfresco-core';
@@ -31,11 +30,8 @@ declare let __moduleName: string;
 @Component({
     selector: 'alfresco-login',
     moduleId: __moduleName,
-    directives: [FORM_DIRECTIVES],
     templateUrl: './alfresco-login.component.html',
-    styleUrls: ['./alfresco-login.component.css'],
-    pipes: [AlfrescoPipeTranslate]
-
+    styleUrls: ['./alfresco-login.component.css']
 })
 export class AlfrescoLoginComponent implements OnInit {
 
@@ -64,7 +60,7 @@ export class AlfrescoLoginComponent implements OnInit {
     @Output()
     executeSubmit: EventEmitter<FormSubmitEvent> = new EventEmitter<FormSubmitEvent>();
 
-    form: ControlGroup;
+    form: FormGroup;
     error: boolean = false;
     errorMsg: string;
     success: boolean = false;
@@ -86,7 +82,6 @@ export class AlfrescoLoginComponent implements OnInit {
                 private translate: AlfrescoTranslationService) {
 
         translate.addTranslationFolder('node_modules/ng2-alfresco-login/dist/src');
-
         this.initFormError();
         this.initFormFieldsMessages();
     }
@@ -219,7 +214,7 @@ export class AlfrescoLoginComponent implements OnInit {
      * @param field
      * @returns {boolean}
      */
-    isErrorStyle(field: ControlGroup) {
+    isErrorStyle(field: FormGroup) {
         if (typeof componentHandler !== 'undefined') {
             componentHandler.upgradeAllRegistered();
         }

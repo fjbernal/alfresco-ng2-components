@@ -16,11 +16,6 @@
  */
 
 import { Component } from '@angular/core';
-import {
-    CONTEXT_MENU_DIRECTIVES
-} from 'ng2-alfresco-core';
-
-import { WEBSCRIPTCOMPONENT } from 'ng2-alfresco-webscript';
 
 @Component({
     selector: 'alfresco-webscript-demo',
@@ -37,23 +32,16 @@ import { WEBSCRIPTCOMPONENT } from 'ng2-alfresco-webscript';
                            [servicePath]="servicePath"
                            [contentType]="'HTML'"
                            (onSuccess)= "logData($event)"></alfresco-webscript-get>
-    `,
-    directives: [WEBSCRIPTCOMPONENT, CONTEXT_MENU_DIRECTIVES]
+    `
 })
 export class WebscriptComponent {
 
     currentPath: string = '/';
-
     authenticated: boolean;
-
     host: string = 'http://127.0.0.1:8080';
-
     scriptPath: string = 'sample/folder/Company%20Home';
-
     contextRoot: string = 'alfresco';
-
     servicePath: string = 'service';
-
     scriptArgs: string = '';
 
     logData(data) {

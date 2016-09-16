@@ -15,6 +15,7 @@
  * limitations under the License.
  */
 
+/*
 import { bootstrap } from '@angular/platform-browser-dynamic';
 import { HTTP_PROVIDERS } from '@angular/http';
 import { ALFRESCO_SEARCH_PROVIDERS } from 'ng2-alfresco-search';
@@ -32,3 +33,11 @@ bootstrap(AppComponent, [
     UploadService,
     ATIVITI_FORM_PROVIDERS
 ]).catch(err => console.error(err));
+*/
+
+import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+
+import { AppModule } from './app.module';
+
+const platform = platformBrowserDynamic();
+platform.bootstrapModule(AppModule);

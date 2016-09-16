@@ -27,6 +27,9 @@ declare let __moduleName: string;
 export class MediaPlayerComponent {
 
     @Input()
+    nameFile: string;
+
+    @Input()
     urlFile: string;
 
     @Input()

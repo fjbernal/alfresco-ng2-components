@@ -14,17 +14,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-import {
-    it,
-    describe,
-    expect,
-    inject,
-    beforeEach,
-    beforeEachProviders
-} from '@angular/core/testing';
+/*
+import { inject } from '@angular/core/testing';
 import { AlfrescoAuthenticationService, AlfrescoSettingsService } from 'ng2-alfresco-core';
-import { TestComponentBuilder } from '@angular/compiler/testing';
+import { TestBed } from '@angular/core/testing';
 import { AlfrescoTranslationService } from 'ng2-alfresco-core';
 import { AlfrescoLoginComponent } from './alfresco-login.component';
 import { AuthenticationMock } from './../assets/authentication.service.mock';
@@ -35,20 +28,20 @@ describe('AlfrescoLogin', () => {
     let componentFixture;
     let component;
 
-    beforeEachProviders(() => {
-        return [
+    beforeEach(() => {
+        TestBed.configureTestingModule([
             { provide: AlfrescoAuthenticationService, useClass: AuthenticationMock },
             AlfrescoSettingsService,
             { provide: AlfrescoTranslationService, useClass: TranslationMock }
-        ];
+        ])
     });
 
     beforeEach(
         inject(
-            [TestComponentBuilder],
-            (tcb: TestComponentBuilder) => {
+            [TestBed],
+            (tcb: TestBed) => {
                 return tcb
-                    .createAsync(AlfrescoLoginComponent)
+                    .createComponent(AlfrescoLoginComponent)
                     .then(fixture => {
                         componentFixture = fixture;
                         component = fixture.componentInstance;
@@ -447,4 +440,4 @@ describe('AlfrescoLogin', () => {
         expect(component.onError.emit).toHaveBeenCalledWith('LOGIN.MESSAGES.LOGIN-ERROR-PROVIDERS');
     });
 });
-
+*/

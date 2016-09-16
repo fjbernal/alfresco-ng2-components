@@ -15,8 +15,36 @@
  * limitations under the License.
  */
 
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule, ReactiveFormsModule }   from '@angular/forms';
+import { HttpModule } from '@angular/http';
+import { TranslateModule } from 'ng2-translate/ng2-translate';
+
+import { ALFRESCO_CORE_PROVIDERS /*, AlfrescoPipeTranslate*/ } from 'ng2-alfresco-core';
 import { AlfrescoLoginComponent } from './src/components/alfresco-login.component';
 
 export * from './src/components/alfresco-login.component';
 
-export const ALFRESCO_LOGIN_DIRECTIVES: [any] = [AlfrescoLoginComponent];
+// export const ALFRESCO_LOGIN_DIRECTIVES: [any] = [AlfrescoLoginComponent];
+
+@NgModule({
+    imports: [
+        BrowserModule,
+        FormsModule,
+        ReactiveFormsModule,
+        HttpModule,
+        TranslateModule
+    ],
+    declarations: [
+        // AlfrescoPipeTranslate,
+        AlfrescoLoginComponent
+    ],
+    providers: [
+        ...ALFRESCO_CORE_PROVIDERS
+    ],
+    exports: [
+        AlfrescoLoginComponent
+    ]
+})
+export class LoginModule { }
