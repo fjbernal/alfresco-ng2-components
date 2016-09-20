@@ -16,7 +16,7 @@
  */
 
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { AlfrescoTranslationService, AlfrescoAuthenticationService } from 'ng2-alfresco-core';
+import { AlfrescoSettingsService } from 'ng2-alfresco-core';
 import { ProcessInstance } from '../models/process-instance';
 import { ActivitiProcessService } from './../services/activiti-process.service';
 
@@ -37,18 +37,11 @@ export class ActivitiProcessInstanceHeader {
     @Output()
     processCancelled = new EventEmitter();
 
-    /**
-     * Constructor
-     * @param auth
-     * @param translate
-     * @param activitiProcess
-     */
-    constructor(private auth: AlfrescoAuthenticationService,
-                private translate: AlfrescoTranslationService,
+    constructor(private settings: AlfrescoSettingsService,
                 private activitiProcess: ActivitiProcessService) {
 
-        if (translate) {
-            translate.addTranslationFolder('node_modules/ng2-activiti-tasklist/src');
+        if (settings) {
+            settings.addTranslationFolder('node_modules/ng2-activiti-tasklist/src');
         }
     }
 

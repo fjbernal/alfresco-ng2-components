@@ -16,11 +16,10 @@
  */
 
 import { Component, Output, EventEmitter, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
-import { AlfrescoTranslationService, AlfrescoAuthenticationService } from 'ng2-alfresco-core';
+import { AlfrescoSettingsService } from 'ng2-alfresco-core';
 import { ActivitiProcessService } from './../services/activiti-process.service';
 import { FilterRepresentationModel } from '../models/filter.model';
-import { Observer } from 'rxjs/Observer';
-import { Observable } from 'rxjs/Observable';
+import { Observable, Observer } from 'rxjs/Rx';
 
 declare let componentHandler: any;
 declare let __moduleName: string;
@@ -56,19 +55,12 @@ export class ActivitiProcessFilters implements OnInit, OnChanges {
 
     filters: FilterRepresentationModel [] = [];
 
-    /**
-     * Constructor
-     * @param auth
-     * @param translate
-     * @param activiti
-     */
-    constructor(private auth: AlfrescoAuthenticationService,
-                private translate: AlfrescoTranslationService,
-                public activiti: ActivitiProcessService) {
+    constructor(private settings: AlfrescoSettingsService,
+                private activiti: ActivitiProcessService) {
         this.filter$ = new Observable<FilterRepresentationModel>(observer => this.filterObserver = observer).share();
 
-        if (translate) {
-            translate.addTranslationFolder('node_modules/ng2-activiti-processlist/src');
+        if (settings) {
+            settings.addTranslationFolder('node_modules/ng2-activiti-processlist/src');
         }
     }
 

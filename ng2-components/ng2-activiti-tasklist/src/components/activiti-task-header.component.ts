@@ -16,7 +16,7 @@
  */
 
 import { Component, Input, OnInit, OnChanges } from '@angular/core';
-import { AlfrescoTranslationService, AlfrescoAuthenticationService } from 'ng2-alfresco-core';
+import { AlfrescoSettingsService } from 'ng2-alfresco-core';
 import { TaskDetailsModel } from '../models/task-details.model';
 import { FormModel, FormService } from 'ng2-activiti-form';
 
@@ -37,17 +37,11 @@ export class ActivitiTaskHeader implements OnInit, OnChanges {
 
     taskForm: FormModel;
 
-    /**
-     * Constructor
-     * @param auth
-     * @param translate
-     */
-    constructor(private auth: AlfrescoAuthenticationService,
-                private activitiForm: FormService,
-                private translate: AlfrescoTranslationService) {
+    constructor(private formService: FormService,
+                private settings: AlfrescoSettingsService) {
 
-        if (translate) {
-            translate.addTranslationFolder('node_modules/ng2-activiti-tasklist/src');
+        if (settings) {
+            settings.addTranslationFolder('node_modules/ng2-activiti-tasklist/src');
         }
     }
 
@@ -67,7 +61,7 @@ export class ActivitiTaskHeader implements OnInit, OnChanges {
 
     public load(taskId: string) {
         if (taskId) {
-            this.activitiForm.getTaskForm(taskId).subscribe(
+            this.formService.getTaskForm(taskId).subscribe(
                 (response) => {
                     this.taskForm = response;
                 },

@@ -18,7 +18,7 @@
 import { Component, ChangeDetectorRef, OnInit, OnDestroy } from '@angular/core';
 import { FileModel } from '../models/file.model';
 import { FileUploadingListComponent } from './file-uploading-list.component';
-import { AlfrescoTranslationService } from 'ng2-alfresco-core';
+import { AlfrescoSettingsService } from 'ng2-alfresco-core';
 import { UploadService } from '../services/upload.service';
 
 declare let __moduleName: string;
@@ -56,9 +56,9 @@ export class FileUploadingDialogComponent implements OnInit, OnDestroy {
     private counterSubscription: any;
 
     constructor(private cd: ChangeDetectorRef,
-                translate: AlfrescoTranslationService,
+                private settings: AlfrescoSettingsService,
                 private _uploaderService: UploadService) {
-        translate.addTranslationFolder('node_modules/ng2-alfresco-upload/dist/src');
+        settings.addTranslationFolder('node_modules/ng2-alfresco-upload/dist/src');
     }
 
     ngOnInit() {

@@ -17,12 +17,9 @@
 
 import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { FORM_DIRECTIVES, ControlGroup, FormBuilder, Validators } from '@angular/common';
-import {
-    AlfrescoTranslationService,
-    AlfrescoAuthenticationService,
-    AlfrescoSettingsService
-} from 'ng2-alfresco-core';
+import { AlfrescoAuthenticationService, AlfrescoSettingsService } from 'ng2-alfresco-core';
 import { FormSubmitEvent } from '../models/form-submit-event.model';
+import { TranslateService } from 'ng2-translate';
 
 declare let componentHandler: any;
 declare let __moduleName: string;
@@ -71,19 +68,12 @@ export class AlfrescoLoginComponent implements OnInit {
 
     private _message: { [id: string]: { [id: string]: string } };
 
-    /**
-     * Constructor
-     * @param _fb
-     * @param authService
-     * @param settingsService
-     * @param translate
-     */
     constructor(private _fb: FormBuilder,
                 public authService: AlfrescoAuthenticationService,
                 public settingsService: AlfrescoSettingsService,
-                private translate: AlfrescoTranslationService) {
+                private translateService: TranslateService) {
 
-        translate.addTranslationFolder('node_modules/ng2-alfresco-login/dist/src');
+        settingsService.addTranslationFolder('node_modules/ng2-alfresco-login/dist/src');
 
         this.initFormError();
         this.initFormFieldsMessages();
@@ -174,7 +164,7 @@ export class AlfrescoLoginComponent implements OnInit {
             this.errorMsg = 'LOGIN.MESSAGES.LOGIN-ERROR-PROVIDERS';
             this.enableError();
             let messageProviders: any;
-            messageProviders = this.translate.get(this.errorMsg);
+            messageProviders = this.translateService.get(this.errorMsg);
             this.onError.emit(messageProviders.value);
             return false;
         }

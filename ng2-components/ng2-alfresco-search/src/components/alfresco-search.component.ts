@@ -19,7 +19,7 @@ import { Component, EventEmitter, Input, Output, Optional, OnChanges, OnInit } f
 import { RouteParams } from '@angular/router-deprecated';
 import { AlfrescoSearchService } from './../services/alfresco-search.service';
 import { AlfrescoThumbnailService } from './../services/alfresco-thumbnail.service';
-import { AlfrescoTranslationService } from 'ng2-alfresco-core';
+import { AlfrescoSettingsService } from 'ng2-alfresco-core';
 
 declare let __moduleName: string;
 
@@ -50,12 +50,12 @@ export class AlfrescoSearchComponent implements OnChanges, OnInit {
     route: any[] = [];
 
     constructor(private alfrescoSearchService: AlfrescoSearchService,
-                private translate: AlfrescoTranslationService,
+                private settings: AlfrescoSettingsService,
                 private _alfrescoThumbnailService: AlfrescoThumbnailService,
                 @Optional() params: RouteParams) {
 
-        if (translate !== null) {
-            translate.addTranslationFolder('node_modules/ng2-alfresco-search/dist/src');
+        if (settings !== null) {
+            settings.addTranslationFolder('node_modules/ng2-alfresco-search/dist/src');
         }
 
         this.results = null;

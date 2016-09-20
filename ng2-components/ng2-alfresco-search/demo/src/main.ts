@@ -21,8 +21,7 @@ import { HTTP_PROVIDERS } from '@angular/http';
 import {
     ALFRESCO_CORE_PROVIDERS,
     AlfrescoSettingsService,
-    AlfrescoAuthenticationService,
-    AlfrescoTranslationService
+    AlfrescoAuthenticationService
 } from 'ng2-alfresco-core';
 import {
     ALFRESCO_SEARCH_PROVIDERS,
@@ -61,13 +60,12 @@ class SearchDemo implements OnInit {
     ticket: string;
 
     constructor(private authService: AlfrescoAuthenticationService,
-                private settingsService: AlfrescoSettingsService,
-                translation: AlfrescoTranslationService) {
+                private settingsService: AlfrescoSettingsService) {
 
         settingsService.ecmHost = this.ecmHost;
         settingsService.setProviders('ECM');
 
-        translation.addTranslationFolder();
+        settingsService.addTranslationFolder();
     }
 
     public updateHost(): void {

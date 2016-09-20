@@ -23,7 +23,7 @@ describe('AlfrescoSettingsService', () => {
     let service: AlfrescoSettingsService;
 
     beforeEach(() => {
-        service = new AlfrescoSettingsService();
+        service = new AlfrescoSettingsService(null);
     });
 
     it('should have default ECM host', () => {

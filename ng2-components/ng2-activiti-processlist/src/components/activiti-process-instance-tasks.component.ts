@@ -16,12 +16,11 @@
  */
 
 import { Component, Input, OnInit, ViewChild, Output, EventEmitter } from '@angular/core';
-import { AlfrescoTranslationService, AlfrescoAuthenticationService } from 'ng2-alfresco-core';
+import { AlfrescoSettingsService } from 'ng2-alfresco-core';
 import { ActivitiProcessService } from './../services/activiti-process.service';
 import { TaskDetailsModel } from '../models/task-details.model';
 import { ALFRESCO_TASKLIST_DIRECTIVES } from 'ng2-activiti-tasklist';
-import { Observer } from 'rxjs/Observer';
-import { Observable } from 'rxjs/Observable';
+import { Observable, Observer } from 'rxjs/Rx';
 
 declare let componentHandler: any;
 declare let __moduleName: string;
@@ -64,18 +63,11 @@ export class ActivitiProcessInstanceTasks implements OnInit {
     @ViewChild('taskdetails')
     taskdetails: any;
 
-    /**
-     * Constructor
-     * @param auth
-     * @param translate
-     * @param activitiProcess
-     */
-    constructor(private auth: AlfrescoAuthenticationService,
-                private translate: AlfrescoTranslationService,
+    constructor(private settings: AlfrescoSettingsService,
                 private activitiProcess: ActivitiProcessService) {
 
-        if (translate) {
-            translate.addTranslationFolder('node_modules/ng2-activiti-processlist/src');
+        if (settings) {
+            settings.addTranslationFolder('node_modules/ng2-activiti-processlist/src');
         }
 
         this.task$ = new Observable<TaskDetailsModel>(observer =>  this.taskObserver = observer).share();

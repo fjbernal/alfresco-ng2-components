@@ -18,7 +18,7 @@
 import { Component, EventEmitter, Input, OnChanges, Output } from '@angular/core';
 import { AlfrescoSearchService } from './../services/alfresco-search.service';
 import { AlfrescoThumbnailService } from './../services/alfresco-thumbnail.service';
-import { AlfrescoTranslationService } from 'ng2-alfresco-core';
+import { AlfrescoSettingsService } from 'ng2-alfresco-core';
 
 declare let __moduleName: string;
 
@@ -50,10 +50,10 @@ export class AlfrescoSearchAutocompleteComponent implements OnChanges {
     resultsEmitter = new EventEmitter();
 
     constructor(private alfrescoSearchService: AlfrescoSearchService,
-                private translate: AlfrescoTranslationService,
+                private settings: AlfrescoSettingsService,
                 private alfrescoThumbnailService: AlfrescoThumbnailService) {
-        if (translate) {
-            translate.addTranslationFolder('node_modules/ng2-alfresco-search/dist/src');
+        if (settings) {
+            settings.addTranslationFolder('node_modules/ng2-alfresco-search/dist/src');
         }
         this.results = null;
     }

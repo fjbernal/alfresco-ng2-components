@@ -16,9 +16,11 @@
  */
 
 import { Component, ViewChild, Input, Output, EventEmitter } from '@angular/core';
+import { TranslateService } from 'ng2-translate/ng2-translate';
+import { AlfrescoSettingsService } from 'ng2-alfresco-core';
+
 import { UploadService } from '../services/upload.service';
 import { FileDraggableDirective } from '../directives/file-draggable.directive';
-import { AlfrescoTranslationService } from 'ng2-alfresco-core';
 import { FileModel } from '../models/file.model';
 
 declare let __moduleName: string;
@@ -59,11 +61,10 @@ export class UploadDragAreaComponent {
     @Output()
     onSuccess = new EventEmitter();
 
-    translate: AlfrescoTranslationService;
-
-    constructor(private _uploaderService: UploadService, translate: AlfrescoTranslationService) {
-        this.translate = translate;
-        this.translate.addTranslationFolder('node_modules/ng2-alfresco-upload/dist/src');
+    constructor(private _uploaderService: UploadService,
+                private settings: AlfrescoSettingsService,
+                private translate: TranslateService) {
+        settings.addTranslationFolder('node_modules/ng2-alfresco-upload/dist/src');
     }
 
     ngOnChanges(changes) {

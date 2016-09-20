@@ -32,6 +32,7 @@ import { ObjectDataRow, DataRowEvent } from 'ng2-alfresco-datatable';
 describe('ActivitiTaskList', () => {
 
     let taskList: ActivitiTaskList;
+    let activitiService: ActivitiTaskListService;
 
     let fakeGlobalTask = {
         size: 2, total: 2, start: 0,
@@ -73,8 +74,8 @@ describe('ActivitiTaskList', () => {
     });
 
     beforeEach(() => {
-        let activitiSerevice = new ActivitiTaskListService(null);
-        taskList = new ActivitiTaskList(null, null, activitiSerevice);
+        activitiService = new ActivitiTaskListService(null);
+        taskList = new ActivitiTaskList(null, activitiService);
     });
 
     it('should use the default schemaColumn as default', () => {
@@ -100,8 +101,8 @@ describe('ActivitiTaskList', () => {
     });
 
     it('should return the filtered task list when the taskFilter is passed', (done) => {
-        spyOn(taskList.activiti, 'getTotalTasks').and.returnValue(Observable.fromPromise(fakeGlobalTotalTasksPromise));
-        spyOn(taskList.activiti, 'getTasks').and.returnValue(Observable.fromPromise(fakeGlobalTaskPromise));
+        spyOn(activitiService, 'getTotalTasks').and.returnValue(Observable.fromPromise(fakeGlobalTotalTasksPromise));
+        spyOn(activitiService, 'getTasks').and.returnValue(Observable.fromPromise(fakeGlobalTaskPromise));
         taskList.taskFilter = new UserTaskFilterRepresentationModel({filter: { state: 'open', assignment: 'fake-assignee'}});
 
         taskList.onSuccess.subscribe( (res) => {
@@ -118,7 +119,7 @@ describe('ActivitiTaskList', () => {
     });
 
     it('should throw an exception when the response is wrong', (done) => {
-        spyOn(taskList.activiti, 'getTotalTasks').and.returnValue(Observable.fromPromise(fakeErrorTaskPromise));
+        spyOn(activitiService, 'getTotalTasks').and.returnValue(Observable.fromPromise(fakeErrorTaskPromise));
         taskList.taskFilter = new UserTaskFilterRepresentationModel({filter: { state: 'open', assignment: 'fake-assignee'}});
 
         taskList.onError.subscribe( (err) => {

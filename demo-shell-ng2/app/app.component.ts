@@ -17,11 +17,11 @@
 
 import { Component } from '@angular/core';
 import { ROUTER_DIRECTIVES, Router } from '@angular/router';
+import { TranslateService } from 'ng2-translate/ng2-translate';
 
 import {
     MDL,
     AlfrescoSettingsService,
-    AlfrescoTranslationService,
     AlfrescoAuthenticationService
 } from 'ng2-alfresco-core';
 
@@ -36,7 +36,6 @@ declare var document: any;
     directives: [SearchBarComponent, ROUTER_DIRECTIVES, MDL]
 })
 export class AppComponent {
-    translate: AlfrescoTranslationService;
     searchTerm: string = '';
 
     ecmHost: string = 'http://' + window.location.hostname + ':8080';
@@ -44,26 +43,25 @@ export class AppComponent {
 
     constructor(public auth: AlfrescoAuthenticationService,
                 public router: Router,
-                translate: AlfrescoTranslationService,
-                public alfrescoSettingsService: AlfrescoSettingsService) {
+                private translate: TranslateService,
+                public settings: AlfrescoSettingsService) {
         this.setEcmHost();
         this.setBpmHost();
 
-        this.translate = translate;
-        this.translate.addTranslationFolder();
+        this.settings.addTranslationFolder();
     }
 
     public onChangeECMHost(event: KeyboardEvent): void {
         console.log((<HTMLInputElement>event.target).value);
         this.ecmHost = (<HTMLInputElement>event.target).value;
-        this.alfrescoSettingsService.ecmHost = this.ecmHost;
+        this.settings.ecmHost = this.ecmHost;
         localStorage.setItem(`ecmHost`, this.ecmHost);
     }
 
     public onChangeBPMHost(event: KeyboardEvent): void {
         console.log((<HTMLInputElement>event.target).value);
         this.bpmHost = (<HTMLInputElement>event.target).value;
-        this.alfrescoSettingsService.bpmHost = this.bpmHost;
+        this.settings.bpmHost = this.bpmHost;
         localStorage.setItem(`bpmHost`, this.bpmHost);
     }
 
@@ -100,19 +98,19 @@ export class AppComponent {
 
     private setEcmHost() {
         if (localStorage.getItem(`ecmHost`)) {
-            this.alfrescoSettingsService.ecmHost = localStorage.getItem(`ecmHost`);
+            this.settings.ecmHost = localStorage.getItem(`ecmHost`);
             this.ecmHost = localStorage.getItem(`ecmHost`);
         } else {
-            this.alfrescoSettingsService.ecmHost = this.ecmHost;
+            this.settings.ecmHost = this.ecmHost;
         }
     }
 
     private setBpmHost() {
         if (localStorage.getItem(`bpmHost`)) {
-            this.alfrescoSettingsService.bpmHost = localStorage.getItem(`bpmHost`);
+            this.settings.bpmHost = localStorage.getItem(`bpmHost`);
             this.bpmHost = localStorage.getItem(`bpmHost`);
         } else {
-            this.alfrescoSettingsService.bpmHost = this.bpmHost;
+            this.settings.bpmHost = this.bpmHost;
         }
     }
 }

@@ -23,7 +23,6 @@ import {
     ALFRESCO_CORE_PROVIDERS,
     AlfrescoSettingsService,
     AlfrescoAuthenticationService,
-    AlfrescoTranslationService,
     CONTEXT_MENU_DIRECTIVES
 } from 'ng2-alfresco-core';
 
@@ -151,8 +150,9 @@ class DocumentListDemo implements OnInit {
 
     ticket: string;
 
-    constructor(private authService: AlfrescoAuthenticationService, private settingsService: AlfrescoSettingsService,
-                translation: AlfrescoTranslationService, private documentActions: DocumentActionsService) {
+    constructor(private authService: AlfrescoAuthenticationService,
+                private settingsService: AlfrescoSettingsService,
+                private documentActions: DocumentActionsService) {
 
         settingsService.ecmHost = this.ecmHost;
         settingsService.setProviders('ECM');
@@ -161,7 +161,7 @@ class DocumentListDemo implements OnInit {
             this.ticket = this.authService.getTicketEcm();
         }
 
-        translation.addTranslationFolder();
+        settingsService.addTranslationFolder();
         documentActions.setHandler('my-handler', this.myDocumentActionHandler.bind(this));
     }
 

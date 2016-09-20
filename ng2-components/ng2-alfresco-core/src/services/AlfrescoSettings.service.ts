@@ -17,6 +17,8 @@
 
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
+import { TranslateService } from 'ng2-translate/ng2-translate';
+import { AlfrescoTranslationLoader } from './AlfrescoTranslationLoader';
 
 @Injectable()
 export class AlfrescoSettingsService {
@@ -33,37 +35,53 @@ export class AlfrescoSettingsService {
 
     private providers: string = 'ALL'; // ECM, BPM , ALL
 
-    public bpmHostSubject: Subject<string> = new Subject<string>();
-    public ecmHostSubject: Subject<string> = new Subject<string>();
-    public providerSubject: Subject<string> = new Subject<string>();
+    bpmHostSubject: Subject<string> = new Subject<string>();
+    ecmHostSubject: Subject<string> = new Subject<string>();
+    providerSubject: Subject<string> = new Subject<string>();
+    userLang: string = 'en' ;
 
-    public get ecmHost(): string {
+    constructor(private translate: TranslateService) {
+        this.userLang = navigator.language.split('-')[0]; // use navigator lang if available
+        this.userLang = /(fr|en)/gi.test(this.userLang) ? this.userLang : 'en';
+        translate.setDefaultLang(this.userLang);
+    }
+
+    addTranslationFolder(name: string = '') {
+        let loader = <AlfrescoTranslationLoader> this.translate.currentLoader;
+        if (!loader.existComponent(name)) {
+            loader.addComponentList(name);
+            this.translate.getTranslation(this.userLang);
+        }
+        this.translate.use(this.userLang);
+    }
+
+    get ecmHost(): string {
         return this._ecmHost;
     }
 
-    public set ecmHost(ecmHostUrl: string) {
+    set ecmHost(ecmHostUrl: string) {
         this.ecmHostSubject.next(ecmHostUrl);
         this._ecmHost = ecmHostUrl;
     }
 
-    public get bpmHost(): string {
+    get bpmHost(): string {
         return this._bpmHost;
     }
 
-    public set bpmHost(bpmHostUrl: string) {
+    set bpmHost(bpmHostUrl: string) {
         this.bpmHostSubject.next(bpmHostUrl);
         this._bpmHost = bpmHostUrl;
     }
 
-    public getBPMApiBaseUrl(): string {
+    getBPMApiBaseUrl(): string {
         return this._bpmHost + this._bpmContextPath;
     }
 
-    public getProviders(): string {
+    getProviders(): string {
         return this.providers;
     }
 
-    public setProviders(providers: string) {
+    setProviders(providers: string) {
         this.providerSubject.next(providers);
         this.providers = providers;
     }

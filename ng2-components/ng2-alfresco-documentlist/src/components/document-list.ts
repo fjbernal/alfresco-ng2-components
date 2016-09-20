@@ -32,7 +32,7 @@ import { Subject } from 'rxjs/Rx';
 import { MinimalNodeEntity } from 'alfresco-js-api';
 import {
     CONTEXT_MENU_DIRECTIVES,
-    AlfrescoTranslationService
+    AlfrescoSettingsService
 } from 'ng2-alfresco-core';
 
 import {
@@ -151,12 +151,12 @@ export class DocumentList implements OnInit, AfterViewChecked, AfterContentInit 
     constructor(
         private documentListService: DocumentListService,
         private ngZone: NgZone,
-        private translate: AlfrescoTranslationService) {
+        private settings: AlfrescoSettingsService) {
 
         this.data = new ShareDataTableAdapter(this.documentListService, this.baseComponentPath, []);
 
-        if (translate) {
-            translate.addTranslationFolder('node_modules/ng2-alfresco-documentlist/dist/src');
+        if (settings) {
+            settings.addTranslationFolder('node_modules/ng2-alfresco-documentlist/dist/src');
         }
     }
 

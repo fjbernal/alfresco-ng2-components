@@ -16,10 +16,9 @@
  */
 
 import { Component, Input, OnInit, ViewChild } from '@angular/core';
-import { AlfrescoTranslationService, AlfrescoAuthenticationService } from 'ng2-alfresco-core';
+import { AlfrescoSettingsService } from 'ng2-alfresco-core';
 import { User } from '../models/user.model';
-import { Observer } from 'rxjs/Observer';
-import { Observable } from 'rxjs/Observable';
+import { Observable, Observer } from 'rxjs/Rx';
 
 declare let componentHandler: any;
 declare let __moduleName: string;
@@ -41,16 +40,9 @@ export class ActivitiPeople implements OnInit {
     private peopleObserver: Observer<User>;
     people$: Observable<User>;
 
-    /**
-     * Constructor
-     * @param auth
-     * @param translate
-     */
-    constructor(private auth: AlfrescoAuthenticationService,
-                private translate: AlfrescoTranslationService) {
-
-        if (translate) {
-            translate.addTranslationFolder('node_modules/ng2-activiti-tasklist/src');
+    constructor(private settings: AlfrescoSettingsService) {
+        if (settings) {
+            settings.addTranslationFolder('node_modules/ng2-activiti-tasklist/src');
         }
         this.people$ = new Observable<User>(observer =>  this.peopleObserver = observer).share();
     }

@@ -27,7 +27,7 @@ import { appRouterProviders } from './app.routes';
 
 import { Http } from '@angular/http';
 import { TranslateService, TranslateLoader, TranslatePipe } from 'ng2-translate/ng2-translate';
-import { AlfrescoTranslationLoader, AlfrescoTranslationService } from 'ng2-alfresco-core';
+import { AlfrescoTranslationLoader } from 'ng2-alfresco-core';
 
 bootstrap(AppComponent, [
     appRouterProviders,
@@ -40,7 +40,6 @@ bootstrap(AppComponent, [
         deps: [Http]
     },
     TranslateService,
-    AlfrescoTranslationService,
     ALFRESCO_SEARCH_PROVIDERS,
     UploadService,
     ATIVITI_FORM_PROVIDERS

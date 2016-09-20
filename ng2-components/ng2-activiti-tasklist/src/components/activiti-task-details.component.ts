@@ -16,7 +16,7 @@
  */
 
 import { Component, Input, OnInit, ViewChild, Output, EventEmitter, TemplateRef, OnChanges, SimpleChanges } from '@angular/core';
-import { AlfrescoTranslationService, AlfrescoAuthenticationService } from 'ng2-alfresco-core';
+import { AlfrescoSettingsService } from 'ng2-alfresco-core';
 import { ActivitiTaskListService } from './../services/activiti-tasklist.service';
 import { ActivitiTaskHeader } from './activiti-task-header.component';
 import { ActivitiComments } from './activiti-comments.component';
@@ -87,18 +87,11 @@ export class ActivitiTaskDetails implements OnInit, OnChanges {
 
     noTaskDetailsTemplateComponent: TemplateRef<any>;
 
-    /**
-     * Constructor
-     * @param auth
-     * @param translate
-     */
-    constructor(private auth: AlfrescoAuthenticationService,
-                private translate: AlfrescoTranslationService,
-                private activitiForm: FormService,
+    constructor(private settings: AlfrescoSettingsService,
                 private activitiTaskList: ActivitiTaskListService) {
 
-        if (translate) {
-            translate.addTranslationFolder('node_modules/ng2-activiti-tasklist/src');
+        if (settings) {
+            settings.addTranslationFolder('node_modules/ng2-activiti-tasklist/src');
         }
     }
 

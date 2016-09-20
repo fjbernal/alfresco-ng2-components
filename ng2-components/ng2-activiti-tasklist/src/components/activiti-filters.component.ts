@@ -16,7 +16,7 @@
  */
 
 import { Component, Output, EventEmitter, OnInit, Input, SimpleChanges, OnChanges } from '@angular/core';
-import { AlfrescoTranslationService, AlfrescoAuthenticationService } from 'ng2-alfresco-core';
+import { AlfrescoSettingsService } from 'ng2-alfresco-core';
 import { ActivitiTaskListService } from './../services/activiti-tasklist.service';
 import { FilterRepresentationModel } from '../models/filter.model';
 import { Observer } from 'rxjs/Observer';
@@ -56,19 +56,12 @@ export class ActivitiFilters implements OnInit, OnChanges {
 
     filters: FilterRepresentationModel [] = [];
 
-    /**
-     * Constructor
-     * @param auth
-     * @param translate
-     * @param activiti
-     */
-    constructor(private auth: AlfrescoAuthenticationService,
-                private translate: AlfrescoTranslationService,
-                public activiti: ActivitiTaskListService) {
+    constructor(private settings: AlfrescoSettingsService,
+                private activiti: ActivitiTaskListService) {
         this.filter$ = new Observable<FilterRepresentationModel>(observer => this.filterObserver = observer).share();
 
-        if (translate) {
-            translate.addTranslationFolder('node_modules/ng2-activiti-tasklist/src');
+        if (settings) {
+            settings.addTranslationFolder('node_modules/ng2-activiti-tasklist/src');
         }
     }
 

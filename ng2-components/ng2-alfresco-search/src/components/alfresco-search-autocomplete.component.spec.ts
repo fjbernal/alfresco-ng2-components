@@ -17,6 +17,7 @@
 
 import { it, describe, expect, inject, beforeEachProviders, beforeEach, afterEach } from '@angular/core/testing';
 import { PLATFORM_PIPES } from '@angular/core';
+import { TranslatePipe, TranslateService } from 'ng2-translate/ng2-translate';
 import { TestComponentBuilder } from '@angular/compiler/testing';
 import { AlfrescoSearchAutocompleteComponent } from './alfresco-search-autocomplete.component';
 import { AlfrescoThumbnailService } from './../services/alfresco-thumbnail.service';
@@ -26,9 +27,7 @@ import {
     AlfrescoApiService,
     AlfrescoSettingsService,
     AlfrescoAuthenticationService,
-    AlfrescoContentService,
-    AlfrescoTranslationService,
-    AlfrescoPipeTranslate
+    AlfrescoContentService
 } from 'ng2-alfresco-core';
 
 declare let jasmine: any;
@@ -68,8 +67,8 @@ describe('AlfrescoSearchAutocompleteComponent', () => {
 
     beforeEachProviders(() => {
         return [
-            { provide: PLATFORM_PIPES, useValue: AlfrescoPipeTranslate, multi: true },
-            {provide: AlfrescoTranslationService, useClass: TranslationMock},
+            { provide: PLATFORM_PIPES, useValue: TranslatePipe, multi: true },
+            { provide: TranslateService, useClass: TranslationMock },
             AlfrescoThumbnailService,
             AlfrescoSettingsService,
             AlfrescoApiService,
@@ -95,7 +94,7 @@ describe('AlfrescoSearchAutocompleteComponent', () => {
     });
 
     it('should setup i18n folder', () => {
-        let translation = jasmine.createSpyObj('AlfrescoTranslationService', [
+        let translation = jasmine.createSpyObj('AlfrescoSettingsService', [
             'addTranslationFolder'
         ]);
         let search = new AlfrescoSearchAutocompleteComponent(null, translation, null);

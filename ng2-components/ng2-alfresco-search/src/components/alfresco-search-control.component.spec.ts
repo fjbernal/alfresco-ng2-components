@@ -15,8 +15,9 @@
  * limitations under the License.
  */
 
-import { provide, PLATFORM_PIPES } from '@angular/core';
+import { PLATFORM_PIPES } from '@angular/core';
 import { it, describe, expect, inject, beforeEachProviders, beforeEach } from '@angular/core/testing';
+import { TranslatePipe, TranslateService } from 'ng2-translate/ng2-translate';
 import { TestComponentBuilder } from '@angular/compiler/testing';
 import { AlfrescoSearchControlComponent } from './alfresco-search-control.component';
 import { AlfrescoThumbnailService } from './../services/alfresco-thumbnail.service';
@@ -25,9 +26,7 @@ import {
     AlfrescoSettingsService,
     AlfrescoApiService,
     AlfrescoAuthenticationService,
-    AlfrescoContentService,
-    AlfrescoTranslationService,
-    AlfrescoPipeTranslate
+    AlfrescoContentService
 } from 'ng2-alfresco-core';
 import { AlfrescoSearchService } from '../services/alfresco-search.service';
 
@@ -38,9 +37,9 @@ describe('AlfrescoSearchControlComponent', () => {
 
     beforeEachProviders(() => {
         return [
-            { provide: PLATFORM_PIPES, useValue: AlfrescoPipeTranslate, multi: true },
+            { provide: PLATFORM_PIPES, useValue: TranslatePipe, multi: true },
+            { provide: TranslateService, useClass: TranslationMock },
             AlfrescoSearchService,
-            provide(AlfrescoTranslationService, {useClass: TranslationMock}),
             AlfrescoThumbnailService,
             AlfrescoSettingsService,
             AlfrescoApiService,
@@ -60,7 +59,7 @@ describe('AlfrescoSearchControlComponent', () => {
     }));
 
     it('should setup i18n folder', () => {
-        let translation = jasmine.createSpyObj('AlfrescoTranslationService', [
+        let translation = jasmine.createSpyObj('AlfrescoSettingsService', [
             'addTranslationFolder'
         ]);
 

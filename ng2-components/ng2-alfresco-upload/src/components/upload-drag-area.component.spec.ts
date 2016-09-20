@@ -17,9 +17,10 @@
 
 import { PLATFORM_PIPES } from '@angular/core';
 import { describe, expect, it, inject, beforeEach, beforeEachProviders } from '@angular/core/testing';
+import { TranslatePipe, TranslateService } from 'ng2-translate/ng2-translate';
 import { TestComponentBuilder } from '@angular/compiler/testing';
 import { UploadDragAreaComponent } from './upload-drag-area.component';
-import { AlfrescoTranslationService, AlfrescoSettingsService, AlfrescoAuthenticationService, AlfrescoApiService, AlfrescoPipeTranslate } from 'ng2-alfresco-core';
+import { AlfrescoSettingsService, AlfrescoAuthenticationService, AlfrescoApiService } from 'ng2-alfresco-core';
 import { TranslationMock } from '../assets/translation.service.mock';
 import { UploadService } from '../services/upload.service';
 import { HTTP_PROVIDERS } from '@angular/http';
@@ -41,8 +42,8 @@ describe('AlfrescoUploadDragArea', () => {
             AlfrescoSettingsService,
             AlfrescoAuthenticationService,
             AlfrescoApiService,
-            { provide: PLATFORM_PIPES, useValue: AlfrescoPipeTranslate, multi: true },
-            { provide: AlfrescoTranslationService, useClass: TranslationMock },
+            { provide: PLATFORM_PIPES, useValue: TranslatePipe, multi: true },
+            { provide: TranslateService, useClass: TranslationMock },
             UploadService
         ];
     });

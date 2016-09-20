@@ -16,7 +16,7 @@
  */
 
 import {Component, OnInit, Input, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
-import { AlfrescoTranslationService, CONTEXT_MENU_DIRECTIVES, CONTEXT_MENU_PROVIDERS } from 'ng2-alfresco-core';
+import { CONTEXT_MENU_DIRECTIVES, CONTEXT_MENU_PROVIDERS, AlfrescoSettingsService } from 'ng2-alfresco-core';
 import { ALFRESCO_DATATABLE_DIRECTIVES, ObjectDataTableAdapter, DataRowEvent } from 'ng2-alfresco-datatable';
 import { ActivitiProcessService } from '../services/activiti-process.service';
 import { UserProcessInstanceFilterRepresentationModel, TaskQueryRequestRepresentationModel } from '../models/filter.model';
@@ -63,9 +63,10 @@ export class ActivitiProcessInstanceListComponent implements OnInit, OnChanges {
     @Output()
     onError: EventEmitter<any> = new EventEmitter<any>();
 
-    constructor (private processService: ActivitiProcessService, private translate: AlfrescoTranslationService) {
-        if (translate !== null) {
-            translate.addTranslationFolder('node_modules/ng2-activiti-processlist/src');
+    constructor (private processService: ActivitiProcessService,
+                 private settings: AlfrescoSettingsService) {
+        if (settings !== null) {
+            settings.addTranslationFolder('node_modules/ng2-activiti-processlist/src');
         }
     }
 

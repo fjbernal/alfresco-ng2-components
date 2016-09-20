@@ -16,17 +16,16 @@
  */
 
 import { PLATFORM_PIPES } from '@angular/core';
+import { TranslatePipe, TranslateService } from 'ng2-translate/ng2-translate';
 import { describe, expect, it, inject, beforeEach, beforeEachProviders } from '@angular/core/testing';
 import { TestComponentBuilder } from '@angular/compiler/testing';
 import { Observable } from 'rxjs/Observable';
 import { HTTP_PROVIDERS } from '@angular/http';
 
 import {
-    AlfrescoTranslationService,
     AlfrescoSettingsService,
     AlfrescoAuthenticationService,
-    AlfrescoApiService,
-    AlfrescoPipeTranslate
+    AlfrescoApiService
 } from 'ng2-alfresco-core';
 
 import { FileUploadingDialogComponent } from './file-uploading-dialog.component';
@@ -45,8 +44,8 @@ describe('FileUploadDialog', () => {
             AlfrescoApiService,
             AlfrescoSettingsService,
             AlfrescoAuthenticationService,
-            { provide: PLATFORM_PIPES, useValue: AlfrescoPipeTranslate, multi: true },
-            { provide: AlfrescoTranslationService, useClass: TranslationMock },
+            { provide: PLATFORM_PIPES, useValue: TranslatePipe, multi: true },
+            { provide: TranslateService, useClass: TranslationMock },
             UploadService
         ];
     });
