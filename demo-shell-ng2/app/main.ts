@@ -19,17 +19,28 @@ import { bootstrap } from '@angular/platform-browser-dynamic';
 import { PLATFORM_PIPES } from '@angular/core';
 import { HTTP_PROVIDERS } from '@angular/http';
 import { ALFRESCO_SEARCH_PROVIDERS } from 'ng2-alfresco-search';
-import { ALFRESCO_CORE_PROVIDERS, AlfrescoPipeTranslate } from 'ng2-alfresco-core';
+import { ALFRESCO_CORE_PROVIDERS } from 'ng2-alfresco-core';
 import { ATIVITI_FORM_PROVIDERS } from 'ng2-activiti-form';
 import { UploadService } from 'ng2-alfresco-upload';
 import { AppComponent } from './app.component';
 import { appRouterProviders } from './app.routes';
 
+import { Http } from '@angular/http';
+import { TranslateService, TranslateLoader, TranslatePipe } from 'ng2-translate/ng2-translate';
+import { AlfrescoTranslationLoader, AlfrescoTranslationService } from 'ng2-alfresco-core';
+
 bootstrap(AppComponent, [
     appRouterProviders,
     HTTP_PROVIDERS,
     ALFRESCO_CORE_PROVIDERS,
-    { provide: PLATFORM_PIPES, useValue: AlfrescoPipeTranslate, multi: true },
+    { provide: PLATFORM_PIPES, useValue: TranslatePipe, multi: true },
+    {
+        provide: TranslateLoader,
+        useFactory: (http) => new AlfrescoTranslationLoader(http),
+        deps: [Http]
+    },
+    TranslateService,
+    AlfrescoTranslationService,
     ALFRESCO_SEARCH_PROVIDERS,
     UploadService,
     ATIVITI_FORM_PROVIDERS

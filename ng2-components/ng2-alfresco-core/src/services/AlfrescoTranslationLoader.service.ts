@@ -15,12 +15,10 @@
  * limitations under the License.
  */
 
-import { Injectable } from '@angular/core';
 import { Response, Http } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { TranslateLoader } from 'ng2-translate/ng2-translate';
 
-@Injectable()
 export class AlfrescoTranslationLoader implements TranslateLoader {
 
     private prefix: string = 'i18n';

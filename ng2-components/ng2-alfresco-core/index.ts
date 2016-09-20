@@ -18,8 +18,6 @@
 import {
     AlfrescoApiService,
     AlfrescoSettingsService,
-    AlfrescoTranslationLoader,
-    AlfrescoTranslationService,
     AlfrescoAuthenticationService,
     AlfrescoContentService
 } from './src/services/index';
@@ -35,8 +33,5 @@ export const ALFRESCO_CORE_PROVIDERS: [any] = [
     AlfrescoAuthenticationService,
     AlfrescoContentService,
     AlfrescoSettingsService,
-    AlfrescoTranslationLoader,
-    AlfrescoTranslationService,
     ContextMenuService
 ];
-
